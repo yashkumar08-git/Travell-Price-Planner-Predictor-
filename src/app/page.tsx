@@ -124,7 +124,7 @@ function ItineraryPlanner() {
           generateItinerary(dataToLoad);
       }
     }
-  }, [searchParams, form.reset, generateItinerary]);
+  }, [searchParams, form, generateItinerary]);
 
 
   function handleShare() {
@@ -304,7 +304,7 @@ function ItineraryPlanner() {
                         <FormItem>
                           <FormLabel>Interests</FormLabel>
                           <FormControl>
-                            <>
+                            <div>
                               <Input className="hidden" {...field} />
                               <div className="flex flex-wrap gap-2">
                                 {INTERESTS.map((interest) => (
@@ -318,7 +318,7 @@ function ItineraryPlanner() {
                                   </Badge>
                                 ))}
                               </div>
-                            </>
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>

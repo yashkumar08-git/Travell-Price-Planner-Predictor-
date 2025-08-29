@@ -124,8 +124,7 @@ function ItineraryPlanner() {
           generateItinerary(dataToLoad);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, form.reset]);
+  }, [searchParams, form.reset, generateItinerary]);
 
 
   function handleShare() {

@@ -116,7 +116,6 @@ function ItineraryPlanner() {
     }
     
     if (dataToLoad) {
-      // Convert date string back to Date object
       if (dataToLoad.startDate) {
         dataToLoad.startDate = new Date(dataToLoad.startDate);
       }
@@ -167,18 +166,18 @@ function ItineraryPlanner() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 w-full bg-background/80 backdrop-blur-sm print:hidden">
-        <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+      <header className="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 print:hidden">
+        <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
-            <AirplaneIcon className="h-6 w-6 text-accent" />
-            <h1 className="font-headline text-xl font-bold">TripGenius</h1>
+            <AirplaneIcon className="h-6 w-6 text-primary" />
+            <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">TripGenius</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={handleShare}>
+            <Button variant="ghost" size="sm" onClick={handleShare}>
               <Share2 />
               Share
             </Button>
-            <Button variant="outline" size="sm" onClick={() => window.print()}>
+            <Button variant="ghost" size="sm" onClick={() => window.print()}>
               <Download />
               Download PDF
             </Button>
@@ -186,13 +185,13 @@ function ItineraryPlanner() {
         </div>
       </header>
 
-      <main className="container mx-auto max-w-7xl p-4">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <main className="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div className="print:hidden">
-            <Card className="bg-card/50">
+            <Card>
               <CardHeader>
-                <CardTitle className="font-headline text-2xl">Plan Your Next Adventure</CardTitle>
-                <CardDescription>Fill in your preferences and let AI create the perfect itinerary for you.</CardDescription>
+                <CardTitle className="font-headline text-3xl flex items-center gap-2"><Sparkles className="text-primary"/>Plan Your Next Adventure</CardTitle>
+                <CardDescription>Fill in your preferences and let our AI create the perfect itinerary for you.</CardDescription>
               </CardHeader>
               <CardContent>
                 <Form {...form}>
@@ -388,12 +387,12 @@ function ItineraryPlanner() {
                       )}
                     />
 
-                    <div className="flex items-center gap-4">
-                       <Button type="submit" disabled={loading} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <div className="flex items-center gap-4 pt-4">
+                       <Button type="submit" disabled={loading} size="lg" className="w-full">
                         {loading ? <Loader2 className="animate-spin" /> : <Wand2 />}
                         {loading ? 'Generating...' : 'Generate Itinerary'}
                       </Button>
-                      <Button type="button" variant="outline" onClick={handleClear} className="w-full">
+                      <Button type="button" variant="outline" onClick={handleClear} className="w-full" size="lg">
                         <RotateCcw />
                         Clear
                       </Button>
@@ -406,9 +405,9 @@ function ItineraryPlanner() {
 
           <div className="space-y-8">
             {loading && (
-               <Card>
-                <CardContent className="flex flex-col items-center justify-center p-12 space-y-4">
-                  <Loader2 className="h-12 w-12 animate-spin text-accent" />
+               <Card className="h-full">
+                <CardContent className="flex flex-col items-center justify-center p-12 space-y-4 text-center h-full">
+                  <Loader2 className="h-12 w-12 animate-spin text-primary" />
                   <p className="font-headline text-xl">Generating your dream trip...</p>
                   <p className="text-muted-foreground">The AI is crafting your personalized itinerary. This might take a moment.</p>
                 </CardContent>
@@ -417,7 +416,7 @@ function ItineraryPlanner() {
 
             {!loading && !itinerary && (
               <Card className="flex flex-col items-center justify-center text-center p-8 lg:min-h-[400px]">
-                <Image src="https://picsum.photos/800/600" data-ai-hint="travel planning" alt="Travel illustration" width={300} height={225} className="rounded-lg mb-6" />
+                <Image src="https://picsum.photos/800/600" data-ai-hint="travel planning" alt="Travel illustration" width={300} height={225} className="rounded-lg mb-6 shadow-lg" />
                 <h2 className="font-headline text-2xl font-bold">Your Itinerary Awaits</h2>
                 <p className="text-muted-foreground mt-2 max-w-md">
                   Ready for an adventure? Fill out the form to get started, and your personalized travel plan will appear here.
@@ -429,17 +428,17 @@ function ItineraryPlanner() {
               <>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="font-headline text-3xl">{form.getValues('destination')}</CardTitle>
-                    <CardDescription>{itinerary.summary}</CardDescription>
+                    <CardTitle className="font-headline text-4xl">{form.getValues('destination')}</CardTitle>
+                    <CardDescription className="pt-2">{itinerary.summary}</CardDescription>
                   </CardHeader>
                    <CardContent className="space-y-4">
                       <div>
-                        <h3 className="font-semibold text-lg mb-2">Estimated Budget</h3>
-                        <p>{itinerary.estimatedBudget}</p>
+                        <h3 className="font-headline text-lg font-semibold mb-2">Estimated Budget</h3>
+                        <p className="text-muted-foreground">{itinerary.estimatedBudget}</p>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg mb-2">Helpful Tips</h3>
-                        <p>{itinerary.tips}</p>
+                        <h3 className="font-headline text-lg font-semibold mb-2">Helpful Tips</h3>
+                        <p className="text-muted-foreground">{itinerary.tips}</p>
                       </div>
                    </CardContent>
                 </Card>
@@ -447,7 +446,7 @@ function ItineraryPlanner() {
                 {itinerary.itinerary.map((day) => (
                   <Card key={day.day}>
                     <CardHeader>
-                      <CardTitle className="font-headline text-xl">Day {day.day}</CardTitle>
+                      <CardTitle className="font-headline text-2xl">Day {day.day}</CardTitle>
                       <CardDescription>{new Date(day.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
-import { CalendarIcon, Download, Loader2, RotateCcw, Share2, Sparkles, Wand2 } from 'lucide-react';
+import { CalendarIcon, Coffee, Download, Loader2, Moon, RotateCcw, Share2, Sparkles, Sunset, Wand2 } from 'lucide-react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useEffect, useState } from 'react';
@@ -449,10 +449,34 @@ function ItineraryPlanner() {
                       <CardTitle className="font-headline text-2xl">Day {day.day}</CardTitle>
                       <CardDescription>{new Date(day.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-3">
-                      <p><strong>Morning:</strong> {day.morning}</p>
-                      <p><strong>Afternoon:</strong> {day.afternoon}</p>
-                      <p><strong>Evening:</strong> {day.evening}</p>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                          <Coffee className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="font-semibold">Morning</p>
+                          <p className="text-muted-foreground">{day.morning}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                          <Sunset className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="font-semibold">Afternoon</p>
+                          <p className="text-muted-foreground">{day.afternoon}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                          <Moon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="font-semibold">Evening</p>
+                          <p className="text-muted-foreground">{day.evening}</p>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
@@ -472,5 +496,3 @@ export default function HomePage() {
     </Suspense>
   );
 }
-
-    

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
-import { CalendarIcon, Download, LinkIcon, Loader2, RotateCcw, Share2, Sparkles, Wand2 } from 'lucide-react';
+import { CalendarIcon, Download, Loader2, RotateCcw, Share2, Sparkles, Wand2 } from 'lucide-react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useEffect, useState } from 'react';
@@ -166,7 +166,7 @@ function ItineraryPlanner() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 print:hidden">
+      <header className="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 print:hidden animate-fade-in-down">
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <AirplaneIcon className="h-6 w-6 text-primary" />
@@ -187,7 +187,7 @@ function ItineraryPlanner() {
 
       <main className="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <div className="print:hidden">
+          <div className="print:hidden animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <Card>
               <CardHeader>
                 <CardTitle className="font-headline text-3xl flex items-center gap-2"><Sparkles className="text-primary"/>Plan Your Next Adventure</CardTitle>
@@ -312,7 +312,7 @@ function ItineraryPlanner() {
                                   <Badge
                                     key={interest}
                                     variant={field.value.includes(interest) ? 'default' : 'secondary'}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer transition-transform hover:scale-105"
                                     onClick={() => toggleInterest(interest)}
                                   >
                                     {interest}
@@ -403,7 +403,7 @@ function ItineraryPlanner() {
             </Card>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             {loading && (
                <Card className="h-full">
                 <CardContent className="flex flex-col items-center justify-center p-12 space-y-4 text-center h-full">
@@ -426,7 +426,7 @@ function ItineraryPlanner() {
 
             {itinerary && (
               <>
-                <Card>
+                <Card className="transition-transform hover:scale-[1.02]">
                   <CardHeader>
                     <CardTitle className="font-headline text-4xl">{form.getValues('destination')}</CardTitle>
                     <CardDescription className="pt-2">{itinerary.summary}</CardDescription>
@@ -443,8 +443,8 @@ function ItineraryPlanner() {
                    </CardContent>
                 </Card>
 
-                {itinerary.itinerary.map((day) => (
-                  <Card key={day.day}>
+                {itinerary.itinerary.map((day, index) => (
+                  <Card key={day.day} className="transition-transform hover:scale-[1.02] animate-fade-in-up" style={{ animationDelay: `${0.2 * (index + 1)}s` }}>
                     <CardHeader>
                       <CardTitle className="font-headline text-2xl">Day {day.day}</CardTitle>
                       <CardDescription>{new Date(day.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</CardDescription>
@@ -472,3 +472,5 @@ export default function HomePage() {
     </Suspense>
   );
 }
+
+    
